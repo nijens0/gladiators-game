@@ -1,7 +1,7 @@
 #include "Item.h"
 
-Item::Item(QString name, const ItemType type, const quint8 price, const qint8 requiredLevel,
-         const qint8 damage, const qint8 armor, const bool isEquipped)
+Item::Item(QString name, const ItemType type, const int price, const int requiredLevel,
+         const int damage, const int armor, const bool isEquipped)
         : m_name(std::move(name)), m_type(type), m_price(price),
           m_requiredLevel(requiredLevel), m_damage(damage),
           m_armor(armor), m_isEquipped(isEquipped) {}
@@ -14,19 +14,19 @@ ItemType Item::getType() const {
     return m_type;
 }
 
-quint8 Item::getPrice() const {
+int Item::getPrice() const {
     return m_price;
 }
 
-qint8 Item::getRequiredLevel() const {
+int Item::getRequiredLevel() const {
     return m_requiredLevel;
 }
 
-qint8 Item::getDamage() const {
+int Item::getDamage() const {
     return m_damage;
 }
 
-qint8 Item::getArmor() const {
+int Item::getArmor() const {
     return m_armor;
 }
 
