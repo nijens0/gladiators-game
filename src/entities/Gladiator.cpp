@@ -65,6 +65,16 @@ void Gladiator::addItem(const Item& item) {
     m_inventory.append(item);
 }
 
+void Gladiator::removeItem(const Item& item) {
+
+    for (int i = 0; i < m_inventory.length(); i++) {
+        if (m_inventory[i] == item) {
+            m_inventory.removeAt(i);
+            return;
+        }
+    }
+}
+
 bool Gladiator::isAlive() const {
     return m_hp >= 0;
 }

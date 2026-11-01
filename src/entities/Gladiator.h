@@ -26,6 +26,7 @@ public:
     [[nodiscard]] bool isBot() const;
     [[nodiscard]] QList<Item> getInventory() const;
     void addItem(const Item& item);
+    void removeItem(const Item& item);
     [[nodiscard]] bool isAlive() const;
     [[nodiscard]] int getDamage() const;
     [[nodiscard]] int getArmor() const;
