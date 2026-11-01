@@ -61,6 +61,10 @@ QList<Item> Gladiator::getInventory() const {
     return m_inventory;
 }
 
+void Gladiator::addItem(const Item& item) {
+    m_inventory.append(item);
+}
+
 bool Gladiator::isAlive() const {
     return m_hp >= 0;
 }
