@@ -12,7 +12,8 @@ find_package(Qt6 COMPONENTS
         REQUIRED)
 
 add_executable(gladiators main.cpp
-        src/entities/ItemType.h)
+        src/entities/ItemType.h
+        src/entities/FightType.h)
 target_link_libraries(gladiators
         Qt::Core
 )
