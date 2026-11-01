@@ -18,7 +18,11 @@ add_executable(gladiators main.cpp
         src/entities/Item.cpp
         src/entities/Item.h
         src/entities/Gladiator.cpp
-        src/entities/Gladiator.h)
+        src/entities/Gladiator.h
+        src/entities/Fight.cpp
+        src/entities/Fight.h
+        src/entities/Turn.cpp
+        src/entities/Turn.h)
 target_link_libraries(gladiators
         Qt::Core
 )
