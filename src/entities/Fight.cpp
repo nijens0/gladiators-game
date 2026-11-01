@@ -39,3 +39,7 @@ std::optional<Gladiator> Fight::getWinner() const {
 
     return std::nullopt;
 }
+
+QList<Turn> Fight::getTurns() const {
+    return m_turns;
+}
