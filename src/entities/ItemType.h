@@ -1,0 +1,11 @@
+#ifndef GLADIATORS_ITEMTYPE_H
+#define GLADIATORS_ITEMTYPE_H
+
+enum class ItemType {
+    WEAPON,
+    ARMOR,
+    HELMET,
+    SHIELD
+};
+
+#endif //GLADIATORS_ITEMTYPE_H
