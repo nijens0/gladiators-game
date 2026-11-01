@@ -1,0 +1,11 @@
+#ifndef GLADIATORS_GLADIADORZONE_H
+#define GLADIATORS_GLADIADORZONE_H
+
+enum class GladiatorZone {
+    HEAD,
+    CHEST,
+    BELLY,
+    LEGS
+};
+
+#endif //GLADIATORS_GLADIADORZONE_H
