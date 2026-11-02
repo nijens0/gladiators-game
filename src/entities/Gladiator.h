@@ -18,6 +18,8 @@ public:
     [[nodiscard]] int getHp() const;
     [[nodiscard]] int getMaxHp() const;
     [[nodiscard]] int getGold() const;
+    void addGold(int gold);
+    void subGold(int gold);
     [[nodiscard]] int getFreePoints() const;
     [[nodiscard]] int getStrength() const;
     [[nodiscard]] int getAgility() const;

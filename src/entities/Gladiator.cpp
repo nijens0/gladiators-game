@@ -33,6 +33,16 @@ int Gladiator::getGold() const {
     return m_gold;
 }
 
+void Gladiator::addGold(const int gold) {
+    m_gold += gold;
+}
+
+void Gladiator::subGold(const int gold) {
+    if (gold > m_gold) return;
+
+    m_gold -= gold;
+}
+
 int Gladiator::getFreePoints() const {
     return m_freePoints;
 }
