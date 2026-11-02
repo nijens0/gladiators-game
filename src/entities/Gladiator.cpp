@@ -21,6 +21,10 @@ int Gladiator::getExperience() const {
     return m_experience;
 }
 
+void Gladiator::addExperience(int amount) {
+    m_experience += amount;
+}
+
 int Gladiator::getHp() const {
     return m_hp;
 }

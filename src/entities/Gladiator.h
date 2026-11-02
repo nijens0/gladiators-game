@@ -15,6 +15,7 @@ public:
     [[nodiscard]] QString getName() const;
     [[nodiscard]] int getLevel() const;
     [[nodiscard]] int getExperience() const;
+    void addExperience(int amount);
     [[nodiscard]] int getHp() const;
     [[nodiscard]] int getMaxHp() const;
     [[nodiscard]] int getGold() const;
