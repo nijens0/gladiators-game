@@ -47,6 +47,11 @@ int Gladiator::getFreePoints() const {
     return m_freePoints;
 }
 
+void Gladiator::subFreePoint() {
+    if (m_freePoints <= 0) return;
+    m_freePoints--;
+}
+
 int Gladiator::getStrength() const {
     return m_strength;
 }
