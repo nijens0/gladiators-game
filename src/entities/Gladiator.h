@@ -7,7 +7,7 @@
 
 class Gladiator {
 public:
-    explicit Gladiator(QString name, int level = 0, int experience = 0,
+    explicit Gladiator(QString name, int level = 1, int experience = 0,
                        int hp = 100, int maxHp = 100, int gold = 5, int freePoints = 3,
                        int strength = 5, int agility = 5, int intuition = 5,
                        int endurance = 5, bool isBot = false);
