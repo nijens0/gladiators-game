@@ -21,6 +21,10 @@ int Gladiator::getExperience() const {
     return m_experience;
 }
 
+void Gladiator::addExperience(int amount) {
+    m_experience += amount;
+}
+
 int Gladiator::getHp() const {
     return m_hp;
 }
@@ -33,24 +37,55 @@ int Gladiator::getGold() const {
     return m_gold;
 }
 
+void Gladiator::addGold(const int gold) {
+    m_gold += gold;
+}
+
+void Gladiator::subGold(const int gold) {
+    if (gold > m_gold) return;
+
+    m_gold -= gold;
+}
+
 int Gladiator::getFreePoints() const {
     return m_freePoints;
+}
+
+void Gladiator::subFreePoint() {
+    if (m_freePoints <= 0) return;
+    m_freePoints--;
 }
 
 int Gladiator::getStrength() const {
     return m_strength;
 }
 
+void Gladiator::addStrength() {
+    m_strength++;
+}
+
 int Gladiator::getAgility() const {
     return m_agility;
+}
+
+void Gladiator::addAgility() {
+    m_agility++;
 }
 
 int Gladiator::getIntuition() const {
     return m_intuition;
 }
 
+void Gladiator::addIntuition() {
+    m_intuition++;
+}
+
 int Gladiator::getEndurance() const {
     return m_endurance;
+}
+
+void Gladiator::addEndurance() {
+    m_endurance++;
 }
 
 bool Gladiator::isBot() const {
@@ -59,6 +94,20 @@ bool Gladiator::isBot() const {
 
 QList<Item> Gladiator::getInventory() const {
     return m_inventory;
+}
+
+void Gladiator::addItem(const Item& item) {
+    m_inventory.append(item);
+}
+
+void Gladiator::removeItem(const Item& item) {
+
+    for (int i = 0; i < m_inventory.length(); i++) {
+        if (m_inventory[i] == item) {
+            m_inventory.removeAt(i);
+            return;
+        }
+    }
 }
 
 bool Gladiator::isAlive() const {

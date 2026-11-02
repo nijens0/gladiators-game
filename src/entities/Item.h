@@ -2,13 +2,14 @@
 #define GLADIATORS_ITEM_H
 
 #include <qstring.h>
-#include <utility>
 #include "ItemType.h"
 
 
 class Item {
 public:
     Item(QString name, ItemType type, int price, int requiredLevel, int damage, int armor, bool isEquipped);
+
+    bool operator==(const Item&) const = default;
 
     [[nodiscard]] QString getName() const;
     [[nodiscard]] ItemType getType() const;
