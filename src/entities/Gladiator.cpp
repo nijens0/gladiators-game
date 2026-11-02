@@ -51,16 +51,32 @@ int Gladiator::getStrength() const {
     return m_strength;
 }
 
+void Gladiator::addStrength() {
+    m_strength++;
+}
+
 int Gladiator::getAgility() const {
     return m_agility;
+}
+
+void Gladiator::addAgility() {
+    m_agility++;
 }
 
 int Gladiator::getIntuition() const {
     return m_intuition;
 }
 
+void Gladiator::addIntuition() {
+    m_intuition++;
+}
+
 int Gladiator::getEndurance() const {
     return m_endurance;
+}
+
+void Gladiator::addEndurance() {
+    m_endurance++;
 }
 
 bool Gladiator::isBot() const {

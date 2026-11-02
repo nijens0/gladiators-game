@@ -22,9 +22,13 @@ public:
     void subGold(int gold);
     [[nodiscard]] int getFreePoints() const;
     [[nodiscard]] int getStrength() const;
+    void addStrength();
     [[nodiscard]] int getAgility() const;
+    void addAgility();
     [[nodiscard]] int getIntuition() const;
+    void addIntuition();
     [[nodiscard]] int getEndurance() const;
+    void addEndurance();
     [[nodiscard]] bool isBot() const;
     [[nodiscard]] QList<Item> getInventory() const;
     void addItem(const Item& item);
