@@ -24,7 +24,12 @@ add_executable(gladiators main.cpp
         src/entities/Turn.cpp
         src/entities/Turn.h
         src/inventory/InventoryService.cpp
-        src/inventory/InventoryService.h)
+        src/inventory/InventoryService.h
+        src/shop/ShopService.cpp
+        src/shop/ShopService.h
+        src/character/CharacterService.cpp
+        src/character/CharacterService.h
+        src/character/StatType.h)
 target_link_libraries(gladiators
         Qt::Core
 )
