@@ -29,7 +29,9 @@ add_executable(gladiators main.cpp
         src/shop/ShopService.h
         src/character/CharacterService.cpp
         src/character/CharacterService.h
-        src/character/StatType.h)
+        src/character/StatType.h
+        src/rating/RatingService.cpp
+        src/rating/RatingService.h)
 target_link_libraries(gladiators
         Qt::Core
 )
