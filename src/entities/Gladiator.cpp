@@ -1,13 +1,15 @@
 #include "Gladiator.h"
 
 Gladiator::Gladiator(QString name, const int level, const int experience,
-                     const int hp, const int maxHp, const int gold, const int freePoints,
+                     const int maxHp, const int gold, const int freePoints,
                      const int strength, const int agility, const int intuition,
                      const int endurance, const bool isBot) :
                 m_name(std::move(name)), m_level(level), m_experience(experience),
-                m_hp(hp), m_maxHp(maxHp), m_gold(gold), m_freePoints(freePoints),
+                m_maxHp(maxHp), m_gold(gold), m_freePoints(freePoints),
                 m_strength(strength), m_agility(agility), m_intuition(intuition),
-                m_endurance(endurance), m_isBot(isBot) {}
+                m_endurance(endurance), m_isBot(isBot) {
+    m_hp = m_maxHp;
+}
 
 QString Gladiator::getName() const {
     return m_name;
