@@ -9,8 +9,8 @@ class Gladiator {
 public:
     explicit Gladiator(QString name, int level = 1, int experience = 0,
                        int maxHp = 100, int gold = 5, int freePoints = 3,
-                       int strength = 5, int agility = 5, int intuition = 5,
-                       int endurance = 5, bool isBot = false);
+                       int strength = 1, int agility = 1, int intuition = 1,
+                       int endurance = 1, bool isBot = false);
 
     [[nodiscard]] QString getName() const;
     [[nodiscard]] int getLevel() const;
