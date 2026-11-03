@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(ItemId id, const ItemType type, const int price, const int requiredLevel,
+Item::Item(const ItemId id, const ItemType type, const int price, const int requiredLevel,
            const int damage, const int armor, const bool isEquipped)
     : m_id(id), m_type(type), m_price(price),
       m_requiredLevel(requiredLevel), m_damage(damage),
