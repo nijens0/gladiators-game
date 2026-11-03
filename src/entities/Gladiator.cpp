@@ -1,14 +1,17 @@
 #include "Gladiator.h"
+#include <cmath>
+
+constexpr int BASE_HP = 100;
+constexpr float STAT_MULTIPLIER = 1.05;
 
 Gladiator::Gladiator(QString name, const int level, const int experience,
-                     const int maxHp, const int gold, const int freePoints,
+                     const int gold, const int freePoints,
                      const int strength, const int agility, const int intuition,
                      const int endurance, const bool isBot) :
                 m_name(std::move(name)), m_level(level), m_experience(experience),
-                m_maxHp(maxHp), m_gold(gold), m_freePoints(freePoints),
-                m_strength(strength), m_agility(agility), m_intuition(intuition),
-                m_endurance(endurance), m_isBot(isBot) {
-    m_hp = m_maxHp;
+                m_gold(gold), m_freePoints(freePoints),m_strength(strength),
+                m_agility(agility), m_intuition(intuition), m_endurance(endurance), m_isBot(isBot) {
+    m_hp = getMaxHp();
 }
 
 QString Gladiator::getName() const {
@@ -32,7 +35,7 @@ int Gladiator::getHp() const {
 }
 
 int Gladiator::getMaxHp() const {
-    return m_maxHp;
+    return BASE_HP * (std::pow(STAT_MULTIPLIER, m_endurance));
 }
 
 int Gladiator::getGold() const {
