@@ -28,6 +28,7 @@ public:
     void subFreePoint();
     [[nodiscard]] int getDamage();
     [[nodiscard]] float getCritChance() const;
+    [[nodiscard]] float getDodgeChance() const;
     [[nodiscard]] int getStrength() const;
     void addStrength();
     [[nodiscard]] int getAgility() const;

@@ -89,6 +89,10 @@ float Gladiator::getCritChance() const {
     return std::round((std::pow(DODGE_AND_CRIT_MULTIPLIER, m_intuition) - 1) * 100) / 100;
 }
 
+float Gladiator::getDodgeChance() const {
+    return std::round((std::pow(DODGE_AND_CRIT_MULTIPLIER, m_agility) - 1) * 100) / 100;
+}
+
 int Gladiator::getStrength() const {
     return m_strength;
 }
