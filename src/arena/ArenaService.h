@@ -8,7 +8,7 @@ public:
     ArenaService();
 
     static void joinFight(Fight fight, Gladiator gladiator);
-    void start(Fight fight);
+    void start(const Fight& fight);
 
     QList<Gladiator> getGladiators();
     QList<Fight> getFights();

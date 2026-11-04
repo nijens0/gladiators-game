@@ -105,3 +105,13 @@ QList<Fight> ArenaService::getFights() {
 void ArenaService::joinFight(Fight fight, Gladiator gladiator) {
     fight.addParticipant(&gladiator);
 }
+
+void ArenaService::start(const Fight& fight) {
+    QList<Gladiator*> gladiators = fight.getParticipants();
+
+    if (gladiators.length() != 2) qFatal("Участников должно быть двое");
+
+    for (auto& gladiator : m_gladiators) {
+        gladiator.setMaxHp();
+    }
+}
