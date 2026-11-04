@@ -10,9 +10,11 @@ public:
     Fight createFight(FightType type, Gladiator creator);
 
     QList<Gladiator> getGladiators();
+    QList<Fight> getFights();
 
 private:
     QList<Gladiator> m_gladiators;
+    QList<Fight> m_fights;
 };
 
 
