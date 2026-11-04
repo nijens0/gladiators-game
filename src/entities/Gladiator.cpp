@@ -35,6 +35,10 @@ int Gladiator::getHp() const {
     return m_hp;
 }
 
+void Gladiator::subHp(const int amount) {
+    m_hp -= amount;
+}
+
 int Gladiator::getMaxHp() const {
     return BASE_HP * (std::pow(STAT_MULTIPLIER, m_endurance));
 }
