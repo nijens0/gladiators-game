@@ -94,6 +94,14 @@ ArenaService::ArenaService() {
     }
 }
 
+QList<Gladiator> ArenaService::getGladiators() {
+    return m_gladiators;
+}
+
+QList<Fight> ArenaService::getFights() {
+    return m_fights;
+}
+
 void ArenaService::joinFight(Fight fight, Gladiator gladiator) {
     fight.addParticipant(&gladiator);
 }
