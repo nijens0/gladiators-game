@@ -85,6 +85,10 @@ int Gladiator::getDamage() {
     return damage * (std::pow(HP_AND_DAMAGE_MULTIPLIER, m_strength));
 }
 
+float Gladiator::getCritChance() const {
+    return std::round((std::pow(DODGE_AND_CRIT_MULTIPLIER, m_intuition) - 1) * 100) / 100;
+}
+
 int Gladiator::getStrength() const {
     return m_strength;
 }
