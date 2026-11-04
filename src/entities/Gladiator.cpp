@@ -74,6 +74,16 @@ void Gladiator::subFreePoint() {
     m_freePoints--;
 }
 
+int Gladiator::getDamage() {
+    auto damage = 0;
+    for (const Item &item : m_inventory) {
+        if (item.isEquipped()) {
+            damage += item.getDamage();
+        }
+    }
+    return damage * (std::pow(STAT_MULTIPLIER, m_strength));
+}
+
 int Gladiator::getStrength() const {
     return m_strength;
 }
