@@ -3,7 +3,7 @@
 Fight::Fight(QPair<Gladiator, Gladiator> participants, const bool isFinished,
              QDateTime startedAt,const FightType type)
     : m_type(type), m_isFinished(isFinished),
-      m_startedAt(std::move(startedAt)), m_participants(participants) {
+      m_participants(participants) {
 }
 
 FightType Fight::getType() const {
@@ -12,10 +12,6 @@ FightType Fight::getType() const {
 
 bool Fight::isFinished() const {
     return m_isFinished;
-}
-
-QDateTime Fight::getStartedAt() const {
-    return m_startedAt;
 }
 
 QPair<Gladiator, Gladiator> Fight::getParticipants() const {
