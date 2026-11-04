@@ -26,7 +26,7 @@ public:
     [[nodiscard]] int getFreePoints() const;
     void addFreePoints();
     void subFreePoint();
-    int getDamage();
+    [[nodiscard]] int getDamage();
     [[nodiscard]] int getStrength() const;
     void addStrength();
     [[nodiscard]] int getAgility() const;

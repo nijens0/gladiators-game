@@ -2,7 +2,8 @@
 #include <cmath>
 
 constexpr int BASE_HP = 100;
-constexpr float STAT_MULTIPLIER = 1.05;
+constexpr float HP_AND_DAMAGE_MULTIPLIER = 1.05f;
+constexpr float DODGE_AND_CRIT_MULTIPLIER = 1.0167f;
 constexpr int ADDITIONAL_STATS = 3;
 
 Gladiator::Gladiator(QString name, const int level, const int experience,
@@ -44,7 +45,7 @@ void Gladiator::subHp(const int amount) {
 }
 
 int Gladiator::getMaxHp() const {
-    return BASE_HP * (std::pow(STAT_MULTIPLIER, m_endurance));
+    return BASE_HP * (std::pow(HP_AND_DAMAGE_MULTIPLIER, m_endurance));
 }
 
 int Gladiator::getGold() const {
@@ -81,7 +82,7 @@ int Gladiator::getDamage() {
             damage += item.getDamage();
         }
     }
-    return damage * (std::pow(STAT_MULTIPLIER, m_strength));
+    return damage * (std::pow(HP_AND_DAMAGE_MULTIPLIER, m_strength));
 }
 
 int Gladiator::getStrength() const {
