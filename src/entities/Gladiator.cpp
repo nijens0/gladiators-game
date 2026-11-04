@@ -35,6 +35,10 @@ int Gladiator::getHp() const {
     return m_hp;
 }
 
+void Gladiator::setMaxHp() {
+    m_hp = getMaxHp();
+}
+
 void Gladiator::subHp(const int amount) {
     m_hp -= amount;
 }

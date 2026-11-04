@@ -17,6 +17,7 @@ public:
     [[nodiscard]] int getExperience() const;
     void addExperience(int amount);
     [[nodiscard]] int getHp() const;
+    void setMaxHp();
     void subHp(int amount);
     [[nodiscard]] int getMaxHp() const;
     [[nodiscard]] int getGold() const;
