@@ -42,3 +42,12 @@ bool ShopService::buy(Gladiator& gladiator, const Item& item) {
 QList<Item> ShopService::getItems() {
     return m_items;
 }
+
+Item ShopService::findItem(const ItemId id) {
+    for (const Item& item : m_items) {
+        if (item.getId() == id) {
+            return item;
+        }
+    }
+    qFatal("Предмет не найден!");
+}
