@@ -1,9 +1,8 @@
 #include "Fight.h"
 
-Fight::Fight(QPair<Gladiator, Gladiator> participants, const bool isFinished,
-             QDateTime startedAt,const FightType type)
-    : m_type(type), m_isFinished(isFinished),
-      m_participants(participants) {
+Fight::Fight(const FightType type)
+    : m_type(type) {
+    m_isFinished = false;
 }
 
 FightType Fight::getType() const {
@@ -14,15 +13,25 @@ bool Fight::isFinished() const {
     return m_isFinished;
 }
 
-QPair<Gladiator, Gladiator> Fight::getParticipants() const {
+void Fight::addParticipant(Gladiator* participant) {
+    if (m_participants.length() >= 2) {
+        throw std::runtime_error("В бою не может быть больше 2 гладиаторов!");
+    }
+    m_participants.append(participant);
+}
+
+QList<Gladiator*> Fight::getParticipants() const {
     return m_participants;
 }
 
-std::optional<Gladiator> Fight::getWinner() const {
-    auto [first, second] = getParticipants();
+std::optional<Gladiator*> Fight::getWinner() const {
+    if (m_participants.length() < 2) return std::nullopt;
 
-    if (!first.isAlive()) return second;
-    if (!second.isAlive()) return first;
+    auto first = m_participants.first();
+    auto second = m_participants.last();
+
+    if (!first->isAlive()) return second;
+    if (!second->isAlive()) return first;
 
     return std::nullopt;
 }
