@@ -8,8 +8,6 @@ public:
     ArenaService();
 
     Fight createFight(FightType type, Gladiator creator);
-    void joinFight(Fight fight, Gladiator gladiator);
-    void start(Fight fight);
 
     QList<Gladiator> getGladiators();
     QList<Fight> getFights();
