@@ -22,6 +22,7 @@ public:
     void addGold(int gold);
     void subGold(int gold);
     [[nodiscard]] int getFreePoints() const;
+    void addFreePoints();
     void subFreePoint();
     [[nodiscard]] int getStrength() const;
     void addStrength();

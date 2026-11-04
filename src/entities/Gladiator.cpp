@@ -3,6 +3,7 @@
 
 constexpr int BASE_HP = 100;
 constexpr float STAT_MULTIPLIER = 1.05;
+constexpr int ADDITIONAL_STATS = 3;
 
 Gladiator::Gladiator(QString name, const int level, const int experience,
                      const int gold, const int freePoints,
@@ -54,6 +55,10 @@ void Gladiator::subGold(const int gold) {
 
 int Gladiator::getFreePoints() const {
     return m_freePoints;
+}
+
+void Gladiator::addFreePoints() {
+    m_freePoints += ADDITIONAL_STATS;
 }
 
 void Gladiator::subFreePoint() {
