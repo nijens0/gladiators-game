@@ -93,3 +93,7 @@ ArenaService::ArenaService() {
         m_fights.append(fight);
     }
 }
+
+void ArenaService::joinFight(Fight fight, Gladiator gladiator) {
+    fight.addParticipant(&gladiator);
+}

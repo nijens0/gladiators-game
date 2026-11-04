@@ -7,7 +7,7 @@ class ArenaService {
 public:
     ArenaService();
 
-    void joinFight(Fight fight, Gladiator gladiator);
+    static void joinFight(Fight fight, Gladiator gladiator);
     void start(Fight fight);
 
     QList<Gladiator> getGladiators();
