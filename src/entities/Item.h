@@ -12,6 +12,7 @@ public:
 
     bool operator==(const Item&) const = default;
 
+    [[nodiscard]] ItemId getId() const;
     [[nodiscard]] QString getName() const;
     [[nodiscard]] ItemType getType() const;
     [[nodiscard]] int getPrice() const;

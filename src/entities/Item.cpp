@@ -7,6 +7,10 @@ Item::Item(const ItemId id, const ItemType type, const int price, const int requ
       m_armor(armor), m_isEquipped(isEquipped) {
 }
 
+ItemId Item::getId() const {
+    return m_id;
+}
+
 QString Item::getName() const {
     switch (m_id) {
         case ItemId::Slipper: return {"Тапок"};
