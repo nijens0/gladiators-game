@@ -1,22 +1,13 @@
 #include "Fight.h"
 
-Fight::Fight(QPair<Gladiator, Gladiator> participants,
-             const int id, const int turnNumber, const bool isFinished,
+Fight::Fight(QPair<Gladiator, Gladiator> participants, const bool isFinished,
              QDateTime startedAt,const FightType type)
-    : m_id(id), m_type(type), m_turnNumber(turnNumber), m_isFinished(isFinished),
+    : m_type(type), m_isFinished(isFinished),
       m_startedAt(std::move(startedAt)), m_participants(participants) {
-}
-
-int Fight::getId() const {
-    return m_id;
 }
 
 FightType Fight::getType() const {
     return m_type;
-}
-
-int Fight::getTurnNumber() const {
-    return m_turnNumber;
 }
 
 bool Fight::isFinished() const {
