@@ -86,8 +86,4 @@ ArenaService::ArenaService() {
         makePompey(),
         makeQuma()
     };
-
-    m_fights = {
-
-    };
 }
