@@ -87,7 +87,9 @@ ArenaService::ArenaService() {
         makeQuma()
     };
 
-    m_fights = {
-
-    };
+    for (auto& bot : m_gladiators) {
+        Fight fight;
+        fight.addParticipant(&bot);
+        m_fights.append(fight);
+    }
 }
