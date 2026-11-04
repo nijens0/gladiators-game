@@ -11,6 +11,8 @@ public:
 
     static QList<Item> getItems();
 
+    static Item findItem(ItemId id);
+
 private:
     static const QList<Item> m_items;
 };

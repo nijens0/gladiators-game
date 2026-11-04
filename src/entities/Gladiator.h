@@ -2,26 +2,29 @@
 #define GLADIATORS_GLADIATOR_H
 #include <qstring.h>
 #include <qlist.h>
-#include "Item.h"
 
+#include "Item.h"
 
 class Gladiator {
 public:
-    explicit Gladiator(QString name, int level = 0, int experience = 0,
-                       int hp = 100, int maxHp = 100, int gold = 5, int freePoints = 3,
-                       int strength = 5, int agility = 5, int intuition = 5,
-                       int endurance = 5, bool isBot = false);
+    explicit Gladiator(QString name, int level = 1, int experience = 0,
+                       int gold = 5, int freePoints = 3,
+                       int strength = 1, int agility = 1, int intuition = 1,
+                       int endurance = 1, bool isBot = false);
 
     [[nodiscard]] QString getName() const;
     [[nodiscard]] int getLevel() const;
     [[nodiscard]] int getExperience() const;
     void addExperience(int amount);
     [[nodiscard]] int getHp() const;
+    void setMaxHp();
+    void subHp(int amount);
     [[nodiscard]] int getMaxHp() const;
     [[nodiscard]] int getGold() const;
     void addGold(int gold);
     void subGold(int gold);
     [[nodiscard]] int getFreePoints() const;
+    void addFreePoints();
     void subFreePoint();
     [[nodiscard]] int getStrength() const;
     void addStrength();
@@ -44,7 +47,6 @@ private:
     int m_level;
     int m_experience;
     int m_hp;
-    int m_maxHp;
     int m_gold;
     int m_freePoints;
     int m_strength;

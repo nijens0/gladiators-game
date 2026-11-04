@@ -1,41 +1,37 @@
 #include "Fight.h"
 
-Fight::Fight(QPair<Gladiator, Gladiator> participants,
-             const int id, const int turnNumber, const bool isFinished,
-             QDateTime startedAt,const FightType type)
-    : m_id(id), m_type(type), m_turnNumber(turnNumber), m_isFinished(isFinished),
-      m_startedAt(std::move(startedAt)), m_participants(participants) {
-}
-
-int Fight::getId() const {
-    return m_id;
+Fight::Fight(const FightType type)
+    : m_type(type) {
+    m_isFinished = false;
 }
 
 FightType Fight::getType() const {
     return m_type;
 }
 
-int Fight::getTurnNumber() const {
-    return m_turnNumber;
-}
-
 bool Fight::isFinished() const {
     return m_isFinished;
 }
 
-QDateTime Fight::getStartedAt() const {
-    return m_startedAt;
+void Fight::addParticipant(Gladiator* participant) {
+    if (m_participants.length() >= 2) {
+        throw std::runtime_error("В бою не может быть больше 2 гладиаторов!");
+    }
+    m_participants.append(participant);
 }
 
-QPair<Gladiator, Gladiator> Fight::getParticipants() const {
+QList<Gladiator*> Fight::getParticipants() const {
     return m_participants;
 }
 
-std::optional<Gladiator> Fight::getWinner() const {
-    auto [first, second] = getParticipants();
+std::optional<Gladiator*> Fight::getWinner() const {
+    if (m_participants.length() < 2) return std::nullopt;
 
-    if (!first.isAlive()) return second;
-    if (!second.isAlive()) return first;
+    auto first = m_participants.first();
+    auto second = m_participants.last();
+
+    if (!first->isAlive()) return second;
+    if (!second->isAlive()) return first;
 
     return std::nullopt;
 }

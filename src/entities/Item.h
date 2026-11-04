@@ -2,15 +2,17 @@
 #define GLADIATORS_ITEM_H
 
 #include <qstring.h>
+#include "ItemName.h"
 #include "ItemType.h"
 
 
 class Item {
 public:
-    Item(QString name, ItemType type, int price, int requiredLevel, int damage, int armor, bool isEquipped);
+    Item(ItemId id, ItemType type, int price, int requiredLevel, int damage, int armor, bool isEquipped);
 
     bool operator==(const Item&) const = default;
 
+    [[nodiscard]] ItemId getId() const;
     [[nodiscard]] QString getName() const;
     [[nodiscard]] ItemType getType() const;
     [[nodiscard]] int getPrice() const;
@@ -20,7 +22,7 @@ public:
     [[nodiscard]] bool isEquipped() const;
 
 private:
-    QString m_name;
+    ItemId m_id;
     ItemType m_type;
     int m_price;
     int m_requiredLevel;
