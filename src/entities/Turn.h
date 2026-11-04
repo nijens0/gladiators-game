@@ -6,7 +6,7 @@
 
 class Turn {
 public:
-    Turn(const Gladiator &attacker, int damage, GladiatorZone attackZone, GladiatorZone blockZone);
+    Turn(const Gladiator &attacker, GladiatorZone attackZone, GladiatorZone blockZone);
 
     Gladiator getAttacker() const;
     GladiatorZone getAttackZone() const;
@@ -15,7 +15,6 @@ public:
 
 private:
     Gladiator m_attacker;
-    int m_damage;
     GladiatorZone m_attackZone;
     GladiatorZone m_blockZone;
 };
