@@ -174,3 +174,15 @@ int Gladiator::getArmor() const {
 
     return armor;
 }
+
+int Gladiator::getShieldArmor() const {
+    auto armor = 0;
+
+    for (const Item &item : m_inventory) {
+        if (item.isEquipped() && item.getType() == ItemType::SHIELD) {
+            armor = item.getArmor();
+        }
+    }
+
+    return armor;
+}
