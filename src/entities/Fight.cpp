@@ -24,14 +24,25 @@ QList<Gladiator*> Fight::getParticipants() const {
     return m_participants;
 }
 
-std::optional<Gladiator*> Fight::getWinner() const {
+std::optional<Gladiator*> Fight::resolveWinner() {
     if (m_participants.length() < 2) return std::nullopt;
 
     auto first = m_participants.first();
     auto second = m_participants.last();
 
-    if (!first->isAlive()) return second;
-    if (!second->isAlive()) return first;
+    if (!first->isAlive() && !second->isAlive()) {
+        m_isFinished = true;
+        return std::nullopt;
+    }
+
+    if (!first->isAlive()) {
+        m_isFinished = true;
+        return second;
+    }
+    if (!second->isAlive()) {
+        m_isFinished = true;
+        return first;
+    }
 
     return std::nullopt;
 }

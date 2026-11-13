@@ -7,10 +7,6 @@ Gladiator Turn::getAttacker() const {
     return m_attacker;
 }
 
-int Turn::getDamage() const {
-    return m_damage;
-}
-
 GladiatorZone Turn::getBlockZone() const {
     return m_blockZone;
 }

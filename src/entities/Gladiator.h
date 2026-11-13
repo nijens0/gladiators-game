@@ -14,6 +14,7 @@ public:
 
     [[nodiscard]] QString getName() const;
     [[nodiscard]] int getLevel() const;
+    void addLevel();
     [[nodiscard]] int getExperience() const;
     void addExperience(int amount);
     [[nodiscard]] int getHp() const;
@@ -44,6 +45,7 @@ public:
     [[nodiscard]] bool isAlive() const;
     [[nodiscard]] int getDamage() const;
     [[nodiscard]] int getArmor() const;
+    [[nodiscard]] int getShieldArmor() const;
 
 private:
     QString m_name;

@@ -24,6 +24,10 @@ int Gladiator::getLevel() const {
     return m_level;
 }
 
+void Gladiator::addLevel() {
+    m_level++;
+}
+
 int Gladiator::getExperience() const {
     return m_experience;
 }
@@ -167,8 +171,20 @@ int Gladiator::getArmor() const {
     auto armor = 0;
 
     for (const Item &item : m_inventory) {
-        if (item.isEquipped()) {
+        if (item.isEquipped() && item.getType() != ItemType::SHIELD) {
             armor += item.getArmor();
+        }
+    }
+
+    return armor;
+}
+
+int Gladiator::getShieldArmor() const {
+    auto armor = 0;
+
+    for (const Item &item : m_inventory) {
+        if (item.isEquipped() && item.getType() == ItemType::SHIELD) {
+            armor = item.getArmor();
         }
     }
 

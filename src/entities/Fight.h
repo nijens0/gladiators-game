@@ -14,7 +14,7 @@ public:
     [[nodiscard]] bool isFinished() const;
     void addParticipant(Gladiator* participant);
     [[nodiscard]] QList<Gladiator*> getParticipants() const;
-    [[nodiscard]] std::optional<Gladiator*> getWinner() const;
+    [[nodiscard]] std::optional<Gladiator*> resolveWinner();
     [[nodiscard]] QList<Turn> getTurns() const;
 
 private:
