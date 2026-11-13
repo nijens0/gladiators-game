@@ -5,7 +5,9 @@ enum class GladiatorZone {
     HEAD,
     CHEST,
     BELLY,
-    LEGS
+    LEGS,
+
+    COUNT
 };
 
 #endif //GLADIATORS_GLADIADORZONE_H
