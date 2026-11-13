@@ -11,7 +11,6 @@ public:
     Gladiator getAttacker() const;
     GladiatorZone getAttackZone() const;
     GladiatorZone getBlockZone() const;
-    int getDamage() const;
 
 private:
     Gladiator m_attacker;
