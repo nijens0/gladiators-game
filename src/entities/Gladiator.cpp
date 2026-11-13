@@ -24,6 +24,10 @@ int Gladiator::getLevel() const {
     return m_level;
 }
 
+void Gladiator::addLevel() {
+    m_level++;
+}
+
 int Gladiator::getExperience() const {
     return m_experience;
 }
