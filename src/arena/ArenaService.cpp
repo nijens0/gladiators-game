@@ -23,7 +23,7 @@ namespace {
 
     Gladiator makeMaximus() {
         return makeBot("Максимус", 2, 1, 1, 1, 3, {
-            ItemId::Stick, ItemId::TShirt
+            ItemId::Stick
         });
     }
 
