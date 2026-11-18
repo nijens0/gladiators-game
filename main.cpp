@@ -1,7 +1,10 @@
 #include <QCoreApplication>
-#include <QDebug>
+
+#include "src/console/ConsoleGame.h"
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
-    return QCoreApplication::exec();
+
+    ConsoleGame game;
+    return game.run();
 }
