@@ -31,11 +31,12 @@ bool ShopService::buy(Gladiator& gladiator, const Item& item) {
     const auto gold = gladiator.getGold();
     const auto price = item.getPrice();
 
-    if (price > gold) {
+    if (price > gold || item.getRequiredLevel() > gladiator.getLevel()) {
         return false;
     }
 
     gladiator.subGold(price);
+    gladiator.addItem(item);
     return true;
 }
 

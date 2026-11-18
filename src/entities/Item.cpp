@@ -61,3 +61,7 @@ int Item::getArmor() const {
 bool Item::isEquipped() const {
     return m_isEquipped;
 }
+
+void Item::setEquipped(const bool isEquipped) {
+    m_isEquipped = isEquipped;
+}

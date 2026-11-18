@@ -79,16 +79,6 @@ void Gladiator::subFreePoint() {
     m_freePoints--;
 }
 
-int Gladiator::getDamage() {
-    auto damage = 0;
-    for (const Item &item : m_inventory) {
-        if (item.isEquipped()) {
-            damage += item.getDamage();
-        }
-    }
-    return damage * (std::pow(HP_AND_DAMAGE_MULTIPLIER, m_strength));
-}
-
 float Gladiator::getCritChance() const {
     return std::round((std::pow(DODGE_AND_CRIT_MULTIPLIER, m_intuition) - 1) * 100) / 100;
 }
@@ -151,8 +141,17 @@ void Gladiator::removeItem(const Item& item) {
     }
 }
 
+void Gladiator::setItemEquipped(const Item& item, const bool isEquipped) {
+    for (int i = 0; i < m_inventory.length(); i++) {
+        if (m_inventory[i] == item) {
+            m_inventory[i].setEquipped(isEquipped);
+            return;
+        }
+    }
+}
+
 bool Gladiator::isAlive() const {
-    return m_hp >= 0;
+    return m_hp > 0;
 }
 
 int Gladiator::getDamage() const {
@@ -164,7 +163,7 @@ int Gladiator::getDamage() const {
         }
     }
 
-    return damage;
+    return damage * (std::pow(HP_AND_DAMAGE_MULTIPLIER, m_strength));
 }
 
 int Gladiator::getArmor() const {

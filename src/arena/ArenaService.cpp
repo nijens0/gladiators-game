@@ -1,4 +1,5 @@
 #include "ArenaService.h"
+#include "../inventory/InventoryService.h"
 #include "../shop/ShopService.h"
 
 namespace {
@@ -9,18 +10,20 @@ namespace {
         Gladiator gladiator(name, level, 0, 0, 0,
                             strength, agility, intuition, endurance, true);
         for (const ItemId id : items) {
-            gladiator.addItem(ShopService::findItem(id));
+            const Item item = ShopService::findItem(id);
+            gladiator.addItem(item);
+            InventoryService::equip(gladiator, item);
         }
         return gladiator;
     }
 
     Gladiator makeMixSlovesniy() {
-        return makeBot("Мих Словесный", 1, 0, 1, 1, 10, {});
+        return makeBot("Мих Словесный", 1, 0, 1, 1, 0, {});
     }
 
     Gladiator makeMaximus() {
-        return makeBot("Максимус", 2, 3, 2, 2, 3, {
-            ItemId::Stick, ItemId::LeatherJacket
+        return makeBot("Максимус", 2, 1, 1, 1, 3, {
+            ItemId::Stick, ItemId::TShirt
         });
     }
 
@@ -102,7 +105,7 @@ QList<Fight> ArenaService::getFights() {
     return m_fights;
 }
 
-void ArenaService::joinFight(Fight fight, Gladiator gladiator) {
+void ArenaService::joinFight(Fight& fight, Gladiator& gladiator) {
     fight.addParticipant(&gladiator);
 }
 
