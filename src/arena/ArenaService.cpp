@@ -1,4 +1,5 @@
 #include "ArenaService.h"
+#include "../inventory/InventoryService.h"
 #include "../shop/ShopService.h"
 
 namespace {
@@ -9,7 +10,9 @@ namespace {
         Gladiator gladiator(name, level, 0, 0, 0,
                             strength, agility, intuition, endurance, true);
         for (const ItemId id : items) {
-            gladiator.addItem(ShopService::findItem(id));
+            const Item item = ShopService::findItem(id);
+            gladiator.addItem(item);
+            InventoryService::equip(gladiator, item);
         }
         return gladiator;
     }
