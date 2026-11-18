@@ -4,7 +4,6 @@
 #include "../inventory/InventoryService.h"
 #include "../save/SaveService.h"
 #include "../shop/ShopService.h"
-#include <QStringList>
 #include <QTextStream>
 #include <optional>
 
@@ -116,39 +115,42 @@ namespace {
         GladiatorZone block = GladiatorZone::HEAD;
     };
 
-    std::optional<TurnCommand> readTurnCommand() {
-        while (true) {
-            prompt("> ");
-            const auto line = readLine();
-            if (!line) return std::nullopt;
-
-            const QStringList parts = line->split(' ', Qt::SkipEmptyParts);
-            bool firstOk = false;
-            bool secondOk = false;
-            const int first = parts.isEmpty() ? -1 : parts[0].toInt(&firstOk);
-
-            TurnCommand command;
-            if (parts.size() == 1 && firstOk && first == 0) {
-                command.surrender = true;
-                return command;
-            }
-            if (parts.size() == 1 && firstOk && first == AUTO_FIGHT_COMMAND) {
-                command.autoFight = true;
-                return command;
-            }
-            if (parts.size() == 2) {
-                const int second = parts[1].toInt(&secondOk);
-                if (firstOk && secondOk && first >= 1 && first <= ZONE_COUNT
-                    && second >= 1 && second <= ZONE_COUNT) {
-                    command.attack = static_cast<GladiatorZone>(first - 1);
-                    command.block = static_cast<GladiatorZone>(second - 1);
-                    return command;
-                }
-            }
-
-            print(QString("Напиши две зоны через пробел, например: 1 3. "
-                          "%1 - автобой, 0 - сдаться").arg(AUTO_FIGHT_COMMAND));
+    void printZones() {
+        for (int i = 0; i < ZONE_COUNT; i++) {
+            print(QString("%1. %2").arg(i + 1).arg(zoneName(static_cast<GladiatorZone>(i))));
         }
+    }
+
+    std::optional<TurnCommand> readTurnCommand(const bool hasShield) {
+        print("Куда бьёшь?");
+        printZones();
+        print(QString("%1. Автобой").arg(AUTO_FIGHT_COMMAND));
+        print("0. Сдаться");
+
+        const auto attack = readChoice(0, AUTO_FIGHT_COMMAND);
+        if (!attack) return std::nullopt;
+
+        TurnCommand command;
+        if (*attack == 0) {
+            command.surrender = true;
+            return command;
+        }
+        if (*attack == AUTO_FIGHT_COMMAND) {
+            command.autoFight = true;
+            return command;
+        }
+
+        command.attack = static_cast<GladiatorZone>(*attack - 1);
+        if (!hasShield) return command;
+
+        print("Что закрываешь?");
+        printZones();
+
+        const auto block = readChoice(1, ZONE_COUNT);
+        if (!block) return std::nullopt;
+
+        command.block = static_cast<GladiatorZone>(*block - 1);
+        return command;
     }
 }
 
@@ -248,11 +250,7 @@ void ConsoleGame::fight() {
         print("У тебя 0 урона: купи и надень оружие, иначе победить не получится.");
     }
 
-    print("Зоны:");
-    for (int i = 0; i < ZONE_COUNT; i++) {
-        print(QString("%1. %2").arg(i + 1).arg(zoneName(static_cast<GladiatorZone>(i))));
-    }
-
+    const bool hasShield = m_player.getShieldArmor() > 0;
     bool autoFight = false;
     int autoTurns = 0;
 
@@ -265,10 +263,8 @@ void ConsoleGame::fight() {
                     .arg(qMax(0, m_player.getHp())).arg(m_player.getMaxHp())
                     .arg(bot->getName())
                     .arg(qMax(0, bot->getHp())).arg(bot->getMaxHp()));
-            print(QString("Куда бьёшь и что закрываешь? (например: 1 3, %1 - автобой, 0 - сдаться)")
-                    .arg(AUTO_FIGHT_COMMAND));
 
-            const auto input = readTurnCommand();
+            const auto input = readTurnCommand(hasShield);
             if (!input || input->surrender) {
                 print("Ты покинул арену.");
                 m_player.setMaxHp();
@@ -296,10 +292,16 @@ void ConsoleGame::fight() {
                     .arg(zoneName(playerTurn.getAttackZone()), bot->getName(),
                          zoneName(botTurn.getBlockZone()))
                     .arg(botHpBefore - bot->getHp()));
-            print(QString("%1 бьёт: %2, ты закрываешь: %3. Урон: %4")
-                    .arg(bot->getName(), zoneName(botTurn.getAttackZone()),
-                         zoneName(playerTurn.getBlockZone()))
-                    .arg(playerHpBefore - m_player.getHp()));
+            if (hasShield) {
+                print(QString("%1 бьёт: %2, ты закрываешь: %3. Урон: %4")
+                        .arg(bot->getName(), zoneName(botTurn.getAttackZone()),
+                             zoneName(playerTurn.getBlockZone()))
+                        .arg(playerHpBefore - m_player.getHp()));
+            } else {
+                print(QString("%1 бьёт: %2. Урон: %3")
+                        .arg(bot->getName(), zoneName(botTurn.getAttackZone()))
+                        .arg(playerHpBefore - m_player.getHp()));
+            }
         }
 
         BattleService::finishFight(fight);
