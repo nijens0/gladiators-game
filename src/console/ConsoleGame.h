@@ -16,6 +16,7 @@ private:
     void showStatus();
     void fight();
     void shop();
+    void shopCategory(ItemType type);
     void inventory();
     void stats();
 

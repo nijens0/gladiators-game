@@ -97,6 +97,16 @@ namespace {
         return {};
     }
 
+    QString categoryName(const ItemType type) {
+        switch (type) {
+            case ItemType::WEAPON: return "Оружие";
+            case ItemType::ARMOR: return "Броня";
+            case ItemType::HELMET: return "Шлемы";
+            case ItemType::SHIELD: return "Щиты";
+        }
+        return {};
+    }
+
     QString describeItem(const Item& item) {
         return QString("%1 (%2, урон %3, защита %4)")
                 .arg(item.getName(), itemTypeName(item.getType()))
@@ -336,15 +346,41 @@ void ConsoleGame::fight() {
 }
 
 void ConsoleGame::shop() {
-    const QList<Item> items = ShopService::getItems();
+    const QList<ItemType> categories = {
+        ItemType::WEAPON, ItemType::ARMOR, ItemType::HELMET, ItemType::SHIELD
+    };
 
     while (true) {
         print();
         print(QString("Магазин. Золото: %1").arg(m_player.getGold()));
+        for (int i = 0; i < categories.size(); i++) {
+            print(QString("%1. %2").arg(i + 1).arg(categoryName(categories[i])));
+        }
+        print("0. Назад");
+
+        const auto choice = readChoice(0, static_cast<int>(categories.size()));
+        if (!choice || *choice == 0) return;
+
+        shopCategory(categories[*choice - 1]);
+    }
+}
+
+void ConsoleGame::shopCategory(const ItemType type) {
+    QList<Item> items;
+    for (const Item& item : ShopService::getItems()) {
+        if (item.getType() == type) {
+            items.append(item);
+        }
+    }
+
+    while (true) {
+        print();
+        print(QString("%1. Золото: %2").arg(categoryName(type)).arg(m_player.getGold()));
         for (int i = 0; i < items.size(); i++) {
             const Item& item = items[i];
-            print(QString("%1. %2, цена %3, нужен уровень %4")
-                    .arg(i + 1).arg(describeItem(item))
+            print(QString("%1. %2: урон %3, защита %4, цена %5, нужен уровень %6")
+                    .arg(i + 1).arg(item.getName())
+                    .arg(item.getDamage()).arg(item.getArmor())
                     .arg(item.getPrice()).arg(item.getRequiredLevel()));
         }
         print("0. Назад");
