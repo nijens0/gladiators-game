@@ -97,6 +97,16 @@ namespace {
         return {};
     }
 
+    QString categoryName(const ItemType type) {
+        switch (type) {
+            case ItemType::WEAPON: return "Оружие";
+            case ItemType::ARMOR: return "Броня";
+            case ItemType::HELMET: return "Шлемы";
+            case ItemType::SHIELD: return "Щиты";
+        }
+        return {};
+    }
+
     QString describeItem(const Item& item) {
         return QString("%1 (%2, урон %3, защита %4)")
                 .arg(item.getName(), itemTypeName(item.getType()))
@@ -171,9 +181,10 @@ int ConsoleGame::run() {
         print("2. Магазин");
         print("3. Инвентарь");
         print("4. Характеристики");
+        print("5. Сбросить прогресс");
         print("0. Выход");
 
-        const auto choice = readChoice(0, 4);
+        const auto choice = readChoice(0, 5);
         if (!choice || *choice == 0) break;
 
         switch (*choice) {
@@ -184,6 +195,9 @@ int ConsoleGame::run() {
             case 3: inventory();
                 break;
             case 4: stats();
+                break;
+            case 5:
+                if (!resetProgress()) return 0;
                 break;
             default: break;
         }
@@ -203,6 +217,10 @@ bool ConsoleGame::loadOrCreatePlayer() {
         return true;
     }
 
+    return createPlayer();
+}
+
+bool ConsoleGame::createPlayer() {
     prompt("Как зовут твоего гладиатора? ");
     const auto name = readLine();
     if (!name) return false;
@@ -211,6 +229,37 @@ bool ConsoleGame::loadOrCreatePlayer() {
     m_defeatedCount = 0;
     save();
     return true;
+}
+
+// false значит, что ввод закончился во время создания нового гладиатора
+bool ConsoleGame::resetProgress() {
+    print();
+    print("Сбросить весь прогресс? Гладиатор, вещи и победы будут удалены.");
+    print("1. Да");
+    print("0. Нет");
+    const auto first = readChoice(0, 1);
+    if (!first || *first == 0) {
+        print("Сброс отменён.");
+        return true;
+    }
+
+    print();
+    print("Ты точно уверен? Вернуть прогресс будет нельзя.");
+    print("1. Да, сбросить");
+    print("0. Нет");
+    const auto second = readChoice(0, 1);
+    if (!second || *second == 0) {
+        print("Сброс отменён.");
+        return true;
+    }
+
+    if (!SaveService::deleteSave()) {
+        print("Не удалось удалить сохранение.");
+        return true;
+    }
+
+    print("Прогресс сброшен.");
+    return createPlayer();
 }
 
 void ConsoleGame::save() {
@@ -251,6 +300,7 @@ void ConsoleGame::fight() {
     }
 
     const bool hasShield = m_player.getShieldArmor() > 0;
+    const int goldBefore = m_player.getGold();
     bool autoFight = false;
     int autoTurns = 0;
 
@@ -324,24 +374,52 @@ void ConsoleGame::fight() {
             print("Ты победил всех гладиаторов арены!");
         }
     } else if (winner) {
-        print("Поражение. " + bot->getName() + " оказался сильнее.");
+        print(QString("Поражение. %1 оказался сильнее. Получено золота: %2")
+                .arg(bot->getName()).arg(m_player.getGold() - goldBefore));
     } else {
-        print("Ничья: оба гладиатора пали.");
+        print(QString("Ничья: оба гладиатора пали. Получено золота: %1")
+                .arg(m_player.getGold() - goldBefore));
     }
 
     m_player.setMaxHp();
 }
 
 void ConsoleGame::shop() {
-    const QList<Item> items = ShopService::getItems();
+    const QList<ItemType> categories = {
+        ItemType::WEAPON, ItemType::ARMOR, ItemType::HELMET, ItemType::SHIELD
+    };
 
     while (true) {
         print();
         print(QString("Магазин. Золото: %1").arg(m_player.getGold()));
+        for (int i = 0; i < categories.size(); i++) {
+            print(QString("%1. %2").arg(i + 1).arg(categoryName(categories[i])));
+        }
+        print("0. Назад");
+
+        const auto choice = readChoice(0, static_cast<int>(categories.size()));
+        if (!choice || *choice == 0) return;
+
+        shopCategory(categories[*choice - 1]);
+    }
+}
+
+void ConsoleGame::shopCategory(const ItemType type) {
+    QList<Item> items;
+    for (const Item& item : ShopService::getItems()) {
+        if (item.getType() == type) {
+            items.append(item);
+        }
+    }
+
+    while (true) {
+        print();
+        print(QString("%1. Золото: %2").arg(categoryName(type)).arg(m_player.getGold()));
         for (int i = 0; i < items.size(); i++) {
             const Item& item = items[i];
-            print(QString("%1. %2, цена %3, нужен уровень %4")
-                    .arg(i + 1).arg(describeItem(item))
+            print(QString("%1. %2: урон %3, защита %4, цена %5, нужен уровень %6")
+                    .arg(i + 1).arg(item.getName())
+                    .arg(item.getDamage()).arg(item.getArmor())
                     .arg(item.getPrice()).arg(item.getRequiredLevel()));
         }
         print("0. Назад");

@@ -14,6 +14,8 @@ public:
 
     static bool saveProgress(int defeatedCount);
     static int loadProgress();
+
+    static bool deleteSave();
 };
 
 

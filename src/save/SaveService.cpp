@@ -101,6 +101,16 @@ std::optional<Gladiator> SaveService::loadPlayer() {
     return player;
 }
 
+bool SaveService::deleteSave() {
+    for (const auto fileName : {PLAYER_FILE, PROGRESS_FILE}) {
+        QFile file(filePath(fileName));
+        if (file.exists() && !file.remove()) {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool SaveService::saveProgress(const int defeatedCount) {
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);

@@ -53,15 +53,20 @@ bool BattleService::chanceProcs(const std::function<float()> &getChance) {
 
 void BattleService::finishFight(Fight& fight) {
     const auto winner = fight.resolveWinner();
-    if (!winner) return;
+    if (!fight.isFinished()) return;
 
-    auto* gladiator = *winner;
-    if (gladiator->isBot()) return;
+    for (auto* gladiator : fight.getParticipants()) {
+        if (gladiator->isBot()) continue;
 
-    const auto level = gladiator->getLevel();
+        const auto level = gladiator->getLevel();
 
-    gladiator->addFreePoints();
-    gladiator->addLevel();
-    gladiator->addGold(level * 10);
-    gladiator->addExperience(1000);
+        if (winner && *winner == gladiator) {
+            gladiator->addFreePoints();
+            gladiator->addLevel();
+            gladiator->addGold(5 + level * 5);
+            gladiator->addExperience(1000);
+        } else {
+            gladiator->addGold(level * 3);
+        }
+    }
 }

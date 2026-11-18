@@ -5,6 +5,7 @@ enum class ItemId {
     Slipper,
     Stick,
     SharpStick,
+    Club,
     IronDagger,
     Rapier,
     KnightLance,
