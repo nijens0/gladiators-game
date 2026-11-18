@@ -4,6 +4,7 @@ const QList<Item> ShopService::m_items = {
     Item{ItemId::Slipper, ItemType::WEAPON, 5, 1, 1, 0, false},
     Item{ItemId::Stick, ItemType::WEAPON, 10, 2, 10, 0, false},
     Item{ItemId::SharpStick, ItemType::WEAPON, 15, 4, 20, 0, false},
+    Item{ItemId::Club, ItemType::WEAPON, 17, 5, 25, 0, false},
     Item{ItemId::IronDagger, ItemType::WEAPON, 20, 6, 30, 0, false},
     Item{ItemId::Rapier, ItemType::WEAPON, 25, 8, 40, 0, false},
     Item{ItemId::KnightLance, ItemType::WEAPON, 35, 9, 40, 7, false},

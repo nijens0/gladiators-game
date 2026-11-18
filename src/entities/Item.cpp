@@ -16,6 +16,7 @@ QString Item::getName() const {
         case ItemId::Slipper: return {"Тапок"};
         case ItemId::Stick: return {"Палка"};
         case ItemId::SharpStick: return {"Заострённая Палка"};
+        case ItemId::Club: return {"Дубина"};
         case ItemId::IronDagger: return {"Железный Кинжал"};
         case ItemId::Rapier: return {"Рапира"};
         case ItemId::KnightLance: return {"Рыцарское копье"};
