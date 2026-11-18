@@ -37,6 +37,8 @@ add_executable(gladiators main.cpp
         src/save/SaveService.h
         src/battle/BattleService.cpp
         src/battle/BattleService.h
+        src/console/ConsoleGame.cpp
+        src/console/ConsoleGame.h
 )
 target_link_libraries(gladiators
         Qt::Core
