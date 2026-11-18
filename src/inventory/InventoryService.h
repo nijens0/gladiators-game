@@ -7,8 +7,8 @@ class InventoryService {
 public:
     InventoryService() = delete;
 
-    static void equip(Gladiator gladiator, const Item &item);
-    static void unequip(Gladiator gladiator, const Item &item);
+    static void equip(Gladiator& gladiator, const Item &item);
+    static void unequip(Gladiator& gladiator, const Item &item);
 };
 
 
