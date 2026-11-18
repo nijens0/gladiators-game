@@ -161,7 +161,7 @@ void Gladiator::setItemEquipped(const Item& item, const bool isEquipped) {
 }
 
 bool Gladiator::isAlive() const {
-    return m_hp >= 0;
+    return m_hp > 0;
 }
 
 int Gladiator::getDamage() const {
