@@ -55,7 +55,7 @@ bool SaveService::savePlayer(const Gladiator& player) {
     const QList<Item> inventory = player.getInventory();
     out << static_cast<qint32>(inventory.size());
     for (const Item& item : inventory) {
-        out << static_cast<qint32>(item.getId());
+        out << static_cast<qint32>(item.getId()) << item.isEquipped();
     }
 
     return writeFile(PLAYER_FILE, data);
@@ -88,11 +88,14 @@ std::optional<Gladiator> SaveService::loadPlayer() {
 
     for (qint32 i = 0; i < inventorySize; ++i) {
         qint32 id;
-        in >> id;
+        bool isEquipped;
+        in >> id >> isEquipped;
         if (in.status() != QDataStream::Ok) {
             return std::nullopt;
         }
-        player.addItem(ShopService::findItem(static_cast<ItemId>(id)));
+        Item item = ShopService::findItem(static_cast<ItemId>(id));
+        item.setEquipped(isEquipped);
+        player.addItem(item);
     }
 
     return player;
