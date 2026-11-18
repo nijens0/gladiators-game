@@ -63,7 +63,7 @@ void BattleService::finishFight(Fight& fight) {
         if (winner && *winner == gladiator) {
             gladiator->addFreePoints();
             gladiator->addLevel();
-            gladiator->addGold(level * 10);
+            gladiator->addGold(5 + level * 5);
             gladiator->addExperience(1000);
         } else {
             gladiator->addGold(level * 3);
