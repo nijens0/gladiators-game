@@ -20,6 +20,7 @@ public:
     [[nodiscard]] int getDamage() const;
     [[nodiscard]] int getArmor() const;
     [[nodiscard]] bool isEquipped() const;
+    void setEquipped(bool isEquipped);
 
 private:
     ItemId m_id;

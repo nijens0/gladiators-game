@@ -42,6 +42,7 @@ public:
     [[nodiscard]] QList<Item> getInventory() const;
     void addItem(const Item& item);
     void removeItem(const Item& item);
+    void setItemEquipped(const Item& item, bool isEquipped);
     [[nodiscard]] bool isAlive() const;
     [[nodiscard]] int getDamage() const;
     [[nodiscard]] int getArmor() const;

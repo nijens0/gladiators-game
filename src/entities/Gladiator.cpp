@@ -151,6 +151,15 @@ void Gladiator::removeItem(const Item& item) {
     }
 }
 
+void Gladiator::setItemEquipped(const Item& item, const bool isEquipped) {
+    for (int i = 0; i < m_inventory.length(); i++) {
+        if (m_inventory[i] == item) {
+            m_inventory[i].setEquipped(isEquipped);
+            return;
+        }
+    }
+}
+
 bool Gladiator::isAlive() const {
     return m_hp >= 0;
 }
