@@ -235,7 +235,7 @@ void ConsoleGame::fight() {
     }
 
     Fight fight = fights[m_defeatedCount];
-    fight.addParticipant(&m_player);
+    ArenaService::joinFight(fight, m_player);
     m_arena.start(fight);
     m_player.setMaxHp();
 
