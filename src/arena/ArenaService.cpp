@@ -18,12 +18,12 @@ namespace {
     }
 
     Gladiator makeMixSlovesniy() {
-        return makeBot("Мих Словесный", 1, 0, 1, 1, 10, {});
+        return makeBot("Мих Словесный", 1, 0, 1, 1, 0, {});
     }
 
     Gladiator makeMaximus() {
-        return makeBot("Максимус", 2, 3, 2, 2, 3, {
-            ItemId::Stick, ItemId::LeatherJacket
+        return makeBot("Максимус", 2, 1, 1, 1, 3, {
+            ItemId::Stick, ItemId::TShirt
         });
     }
 
