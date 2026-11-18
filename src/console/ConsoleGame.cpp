@@ -181,9 +181,10 @@ int ConsoleGame::run() {
         print("2. Магазин");
         print("3. Инвентарь");
         print("4. Характеристики");
+        print("5. Сбросить прогресс");
         print("0. Выход");
 
-        const auto choice = readChoice(0, 4);
+        const auto choice = readChoice(0, 5);
         if (!choice || *choice == 0) break;
 
         switch (*choice) {
@@ -194,6 +195,9 @@ int ConsoleGame::run() {
             case 3: inventory();
                 break;
             case 4: stats();
+                break;
+            case 5:
+                if (!resetProgress()) return 0;
                 break;
             default: break;
         }
@@ -213,6 +217,10 @@ bool ConsoleGame::loadOrCreatePlayer() {
         return true;
     }
 
+    return createPlayer();
+}
+
+bool ConsoleGame::createPlayer() {
     prompt("Как зовут твоего гладиатора? ");
     const auto name = readLine();
     if (!name) return false;
@@ -221,6 +229,37 @@ bool ConsoleGame::loadOrCreatePlayer() {
     m_defeatedCount = 0;
     save();
     return true;
+}
+
+// false значит, что ввод закончился во время создания нового гладиатора
+bool ConsoleGame::resetProgress() {
+    print();
+    print("Сбросить весь прогресс? Гладиатор, вещи и победы будут удалены.");
+    print("1. Да");
+    print("0. Нет");
+    const auto first = readChoice(0, 1);
+    if (!first || *first == 0) {
+        print("Сброс отменён.");
+        return true;
+    }
+
+    print();
+    print("Ты точно уверен? Вернуть прогресс будет нельзя.");
+    print("1. Да, сбросить");
+    print("0. Нет");
+    const auto second = readChoice(0, 1);
+    if (!second || *second == 0) {
+        print("Сброс отменён.");
+        return true;
+    }
+
+    if (!SaveService::deleteSave()) {
+        print("Не удалось удалить сохранение.");
+        return true;
+    }
+
+    print("Прогресс сброшен.");
+    return createPlayer();
 }
 
 void ConsoleGame::save() {

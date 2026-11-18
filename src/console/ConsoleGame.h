@@ -12,6 +12,8 @@ public:
 
 private:
     bool loadOrCreatePlayer();
+    bool createPlayer();
+    bool resetProgress();
     void save();
     void showStatus();
     void fight();
