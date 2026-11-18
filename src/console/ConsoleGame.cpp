@@ -251,6 +251,7 @@ void ConsoleGame::fight() {
     }
 
     const bool hasShield = m_player.getShieldArmor() > 0;
+    const int goldBefore = m_player.getGold();
     bool autoFight = false;
     int autoTurns = 0;
 
@@ -324,9 +325,11 @@ void ConsoleGame::fight() {
             print("Ты победил всех гладиаторов арены!");
         }
     } else if (winner) {
-        print("Поражение. " + bot->getName() + " оказался сильнее.");
+        print(QString("Поражение. %1 оказался сильнее. Получено золота: %2")
+                .arg(bot->getName()).arg(m_player.getGold() - goldBefore));
     } else {
-        print("Ничья: оба гладиатора пали.");
+        print(QString("Ничья: оба гладиатора пали. Получено золота: %1")
+                .arg(m_player.getGold() - goldBefore));
     }
 
     m_player.setMaxHp();
